@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="Gas Station">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0 0 0 0</pose>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://0-Scene/meshes/Table_scene_windowed.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://0-Scene/meshes/Table_scene_windowed.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://gas_station/materials/scripts</uri>
+            <uri>model://gas_station/materials/textures</uri>
+            <name>Scene/Diffuse</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

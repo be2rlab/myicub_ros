@@ -1,0 +1,17 @@
+material Scene/Diffuse
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        Baked_scene.png
+	wreat_tape.jpg
+      }
+    }
+  }
+}
+
+
