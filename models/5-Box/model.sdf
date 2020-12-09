@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="Rubik">
+    <link name="link">
+      <pose>0 0 0.115 0 0 0</pose>
+      <inertial>
+        <mass>0.390</mass>
+        <inertia>
+          <ixx>0.00058</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00058</iyy>
+          <iyz>0</iyz>
+          <izz>0.00019</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://5-Box/meshes/Box.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://5-Box/meshes/Box.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://5-Box/materials/scripts</uri>
+            <uri>model://5-Box/materials/textures</uri>
+            <name>Box/Diffuse</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

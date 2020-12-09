@@ -1,0 +1,15 @@
+material Toy/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture Toy.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}

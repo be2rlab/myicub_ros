@@ -1,0 +1,15 @@
+material Can/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture Soda_Can.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
