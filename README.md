@@ -1,12 +1,20 @@
-
 ## Dependencies
 
 ### Detector
 
-```bash
-apt install python3-pip
-pip3 install tensorflow
-```
+Requirements for Detector:
+Cython
+matplotlib>=3.2.2
+numpy>=1.18.5
+opencv-python>=4.1.2
+pillow
+PyYAML>=5.3
+scipy>=1.4.1
+tensorboard>=2.2
+torch>=1.6.0
+torchvision>=0.7.0
+tqdm>=4.41.0
+
 
 ### Planner
 
@@ -15,5 +23,4 @@ pip3 install tensorflow
 
 
 ## How to install
-
 
