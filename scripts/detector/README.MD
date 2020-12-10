@@ -1,5 +1,9 @@
 Функция для загрузки предобученного объекта: load_state(path='detector.pckl)
 
+Датасет необходимо загрузить в папку dataset\
+                                      -images\
+                                      -labels
+
 Класс Detector:\
   Для обучения метод train(train_file, class_names, valid_file=None)\
   аргументы: train_file - файл со списком файлов датасета (с абсолютными/относительными путями)\
