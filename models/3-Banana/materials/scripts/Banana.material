@@ -1,0 +1,15 @@
+material Banana/Diffuse
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture Banana.jpg
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
