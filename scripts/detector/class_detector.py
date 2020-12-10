@@ -6,22 +6,22 @@ import torch
 from utils.google_utils import attempt_download
 import yaml
 from models.yolo import Model
-from utils.torch_utils import ModelEMA, select_device, intersect_dicts
+from utils.torch_utils import intersect_dicts
 import logging
 from utils.datasets import externalMemory
 import torch.nn as nn
 import torch.optim as optim
-from utils.general import (
-    torch_distributed_zero_first, labels_to_class_weights, plot_labels, check_anchors, labels_to_image_weights,
-    compute_loss, plot_images, fitness, strip_optimizer, plot_results, get_latest_run, check_dataset, check_file,
-    check_git_status, check_img_size, increment_dir, print_mutation, plot_evolution, set_logging, init_seeds)
+# from utils.general import (
+#     torch_distributed_zero_first, labels_to_class_weights, plot_labels, check_anchors, labels_to_image_weights,
+#     compute_loss, plot_images, fitness, strip_optimizer, plot_results, get_latest_run, check_dataset, check_file,
+#     check_git_status, check_img_size, increment_dir, print_mutation, plot_evolution, set_logging, init_seeds)
+
+from utils.general import check_dataset, check_file, init_seeds
+
 from warnings import warn
 from pathlib import Path
 from train import train_on_large_batch
-import math
-import shutil
-import torch.optim.lr_scheduler as lr_scheduler
-from models.experimental import attempt_load
+
 
 
 from detect import detect_img
@@ -35,7 +35,7 @@ def get_opt_and_hyp():
     parser.add_argument('--cfg', type=str, default='models/yolov5s.yaml', help='model.yaml path')
     parser.add_argument('--data', type=str, default='../../../demoset/data.yaml', help='data.yaml path')
     parser.add_argument('--hyp', type=str, default='data/hyp.scratch.yaml', help='hyperparameters path')
-    parser.add_argument('--epochs', type=int, default=10)
+    parser.add_argument('--epochs', type=int, default=40)
     # parser.add_argument('--epochs_iter', type=int, default=20)
     parser.add_argument('--batch-size', type=int, default=8, help='total batch size for all GPUs')
     parser.add_argument('--img-size', nargs='+', type=int, default=416, help='[train, test] image sizes')
@@ -213,7 +213,7 @@ class Detector:
 
         self.added_classes = 0
 
-    def train(self, train_path, class_names, valid_path=None):
+    def train(self, train_file, class_names, valid_file=None):
 
         if not isinstance(class_names, list):
             class_names = [class_names]
@@ -224,8 +224,8 @@ class Detector:
             self.names[self.added_classes] = cn
             self.added_classes += 1
 
-        train_on_large_batch(n_classes_to_add, train_path, self.model, self.device, self.logger,
-                             valid_path=valid_path, imgsz=self.opt.img_size,
+        train_on_large_batch(n_classes_to_add, train_file, self.model, self.device, self.logger,
+                             valid_path=valid_file, imgsz=self.opt.img_size,
                              imgsz_test=self.opt.img_size, gs=self.gs,
                              opt=self.opt, hyp=self.hyp, nc=self.nc, log_dir=self.log_dir, tb_writer=None,
                              names=self.names, optimizer=self.optimizer,
@@ -264,15 +264,16 @@ class Detector:
 
 if __name__ == '__main__':
     dt = Detector()
-    dt.train('/media/ivan/share/demoset/train_4.txt', ['cube',
+    dt.train('train_4.txt', ['cube',
         'can',
         'banana',
-        'egg'])
-    # valid_path='/media/ivan/share/demoset/valid.txt'
+        'egg'],
+     valid_path='/media/ivan/share/demoset/valid.txt')
 
     dt.save_state('main.pckl')
     dt.train('/media/ivan/share/demoset/train_2.txt', ['box',
-        'toy'])
+        'toy'],
+     valid_path='/media/ivan/share/demoset/valid.txt')
     dt.save_state('iter.pckl')
 
 

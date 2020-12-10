@@ -3,8 +3,8 @@ import cv2 as cv
 import os
 
 
-root = 'inference/images'
-# root = '../demoset/images'
+# root = '../../../det_class_yolo/inference/images'
+root = '../../../demoset/images'
 files = os.listdir(root)
 #'iter.pckl'
 dt_main = load_state('main.pckl')
@@ -18,14 +18,14 @@ for f in files:
     img = cv.imread(root + '/' + f)
     # img = cv.imread(f[:-1])
 
-    out_img_main = dt_main.detect(img)
-    # out_img_iter = dt_iter.detect(img)
+    out_img_main = dt_main.detect(img)[0]
+    out_img_iter = dt_iter.detect(img)[0]
     #
     cv.imshow('main', out_img_main)
-    # cv.imshow('iter', out_img_iter)
+    cv.imshow('iter', out_img_iter)
 
-    dt_main.find_object('Box', img)
-    dt_main.find_object('can', img)
+   # dt_main.find_object('Box', img)
+   # dt_main.find_object('can', img)
 
     cv.waitKey()
 

@@ -17,7 +17,6 @@ import torch.optim.lr_scheduler as lr_scheduler
 import torch.utils.data
 import yaml
 from torch.cuda import amp
-from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.tensorboard import SummaryWriter
 from tqdm import tqdm
 
@@ -195,12 +194,26 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
                                          # model=ema.ema,
                                          model=model,
                                          single_cls=opt.single_cls,
-                                         dataloader=testloader if valid_path is not None else dataloader,
+                                         dataloader=dataloader,
                                          save_dir=log_dir,
                                          #    plots=epoch == 0,  # plot first and last
                                          log_imgs=0,
-                                         verbose=True,
+                                         verbose=False,
                                          nc=nc)
+
+        if (epoch % 5 == 0) and valid_path is not None:
+            print('valid:')
+            test.test(opt.data,
+                     batch_size=total_batch_size,
+                     imgsz=imgsz_test,
+                     # model=ema.ema,
+                     model=model,
+                     dataloader=testloader,
+                     save_dir=log_dir,
+                     #    plots=epoch == 0,  # plot first and last
+                     log_imgs=0,
+                     verbose=True,
+                     nc=nc)
 
         # wandb.log({'per class/AP per class': maps})
 
@@ -261,6 +274,21 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
     extMem.update_memory(train_path, update_iters=classes_to_update)
 
     return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def train(hyp, opt, device, tb_writer=None, wandb=None):
