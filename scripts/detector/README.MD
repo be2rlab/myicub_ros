@@ -23,5 +23,5 @@ dataset\
         
   Для сохранения состояния объекта метод save_state(path='detector.pckl') 
 
-
+Датасет https://drive.google.com/file/d/1ERPWHTlEGTCVt5L1_Ykn4Vd58hyBkSzR/view?usp=sharing
 
