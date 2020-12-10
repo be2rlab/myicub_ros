@@ -15,6 +15,8 @@
   Возвращает: координаты рамок в формате: [x1, y1, x2, y2, confidence, class_index]\
         Если неизвестный объект - "unknown object"\
         Если объект не найден - "not found"
+        
+  Для сохранения состояния объекта метод save_state(path='detector.pckl') 
 
 
 
