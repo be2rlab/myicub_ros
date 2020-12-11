@@ -1,0 +1,3 @@
+[submodule "scripts/planner/Catkin/PositionControlMatlab"]
+	path = scripts/planner/Catkin/PositionControlMatlab
+	url = https://github.com/be2rlab/icub_ros.git
