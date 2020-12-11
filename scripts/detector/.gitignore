@@ -2,4 +2,5 @@
 /runs
 /external_memory
 /dataset
+/inference
 *.pckl

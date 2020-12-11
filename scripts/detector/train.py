@@ -54,13 +54,17 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
     epochs = opt.epochs if epochs == None else epochs
     batch_size, total_batch_size = opt.batch_size, opt.total_batch_size
     external_files_path = extMem.get_memory_file()
+
+    path_to_add = train_path.copy()
+
     if use_ext_mem:
-        train_p = [train_path, external_files_path]
-    else:
-        train_p = train_path
+        # train_p = [train_path, external_files_path]
+        train_path.append(external_files_path)
+    # else:
+    #     train_p = train_path
     print(f'train_path{train_path}')
 
-    dataloader, dataset = create_dataloader(train_p, imgsz, batch_size, gs,
+    dataloader, dataset = create_dataloader(train_path, imgsz, batch_size, gs,
                                             hyp=hyp, augment=True, cache=opt.cache_images, rect=opt.rect,
                                             workers=opt.workers,
                                             )
@@ -123,6 +127,9 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
         pbar = enumerate(dataloader)
         pbar = tqdm(pbar, total=nb)  # progress bar
         optimizer.zero_grad()
+
+        logger.info(('\n' + '%10s' * 8) % ('Epoch', 'gpu_mem', 'box', 'obj', 'cls', 'total', 'targets', 'img_size'))
+
         for i, (imgs, targets, _, _) in pbar:  # batch -------------------------------------------------------------
 
             # imgs = x_train[i * batch_size:(i + 1) * batch_size]
@@ -202,6 +209,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
                                          nc=nc)
 
         if (epoch % 5 == 0) and valid_path is not None:
+            print(valid_path)
             print('valid:')
             test.test(opt.data,
                      batch_size=total_batch_size,
@@ -271,7 +279,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
             del ckpt
     # end epoch ----------------------------------------------------------------------------------------------------
     # end training
-    extMem.update_memory(train_path, update_iters=classes_to_update)
+    extMem.update_memory(path_to_add, update_iters=classes_to_update)
 
     return
 

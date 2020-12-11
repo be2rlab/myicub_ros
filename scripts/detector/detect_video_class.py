@@ -12,10 +12,16 @@ dt_iter = load_state('iter.pckl')
 
 # with open('../demoset/train_4.txt', 'r') as f:
 #     files = f.readlines()
+f = os.listdir('inference/video')
 
-for f in files:
-    print(f)
-    img = cv.imread(root + '/' + f)
+cap = cv.VideoCapture('inference/video/' + f[0])
+
+while cap.isOpened():
+
+    ret, img = cap.read()
+
+    # print(f)
+    # img = cv.imread(root + '/' + f)
     # img = cv.imread(f[:-1])
 
     out_img_main = dt_main.detect(img)[0]
@@ -27,7 +33,7 @@ for f in files:
    # dt_main.find_object('Box', img)
    # dt_main.find_object('can', img)
 
-    cv.waitKey()
+    cv.waitKey(1)
 
 
 

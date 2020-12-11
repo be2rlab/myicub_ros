@@ -1030,9 +1030,11 @@ class externalMemory:
     def get_memory_file(self):
         return self.file
 
-    def update_memory(self, datafile, update_iters=1):
-        with open(datafile, 'r') as f:
-            new_data = f.readlines()
+    def update_memory(self, datafiles, update_iters=1):
+        new_data = []
+        for dfile in datafiles:
+            with open(dfile, 'r') as f:
+                new_data += f.readlines()
 
         self.iterations += 1
         h = self.size // self.iterations

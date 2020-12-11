@@ -16,7 +16,8 @@ from utils.general import (
     check_img_size, non_max_suppression, apply_classifier, scale_coords,
     xyxy2xywh, plot_one_box, strip_optimizer, set_logging)
 from utils.torch_utils import select_device, load_classifier, time_synchronized
-
+from utils.datasets import letterbox
+import numpy as np
 
 def detect(save_img=False):
     out, source, weights, view_img, save_txt, imgsz = \
@@ -160,8 +161,8 @@ def detect(save_img=False):
 
 
 
-def detect_img(img, model):
-    imgsz = model.imgsize
+def detect_img(img, model, augment=False, imgsz=416):
+    #imgsz = model.imgsize
     #webcam = source.isnumeric() or source.startswith(('rtsp://', 'rtmp://', 'http://')) or source.endswith('.txt')
 
     # Initialize
@@ -200,17 +201,24 @@ def detect_img(img, model):
     _ = model(img_empty.half() if half else img_empty) if device.type != 'cpu' else None  # run once
     
     im0s = img.copy()
-    img = cv.resize(img, dsize=(imgsz, imgsz), interpolation=cv.INTER_CUBIC)
+
+
+    img = letterbox(im0s, new_shape=imgsz)[0]
+
+        # Convert
+    img = img[:, :, ::-1].transpose(2, 0, 1)  # BGR to RGB, to 3x416x416
+    img = np.ascontiguousarray(img)
+    # img = cv.resize(img, dsize=(imgsz, imgsz), interpolation=cv.INTER_CUBIC)
     img = torch.from_numpy(img).to(device)
     img = img.half() if half else img.float()  # uint8 to fp16/32
     img /= 255.0  # 0 - 255 to 0.0 - 1.0
-    img = img.permute(2, 0, 1)
+    # img = img.permute(2, 0, 1)
     if img.ndimension() == 3:
         img = img.unsqueeze(0)
 
     # Inference
     t1 = time_synchronized()
-    pred = model(img, augment=False)[0]
+    pred = model(img, augment=augment)[0]
 
     # Apply NMS
     conf_thresh = 0.4

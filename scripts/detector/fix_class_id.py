@@ -9,6 +9,8 @@ def fix_class_id(train_files, class_names, added_classes):
 			txt_file = line.replace('images', 'labels').replace('png', 'txt')
 			with open(txt_file[:-1], 'r') as f:
 				label = f.readline()
+
+			assert len(label.split()) == 5
 			# print(line, train_file.split('/')[-1][:-4])
 			class_name = train_file.split('/')[-1][:-4]
 			class_idx = class_names.index(class_name) + added_classes
