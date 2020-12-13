@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <sdf version='1.6'>
   <world name='default'>
     <light name='sun' type='directional'>
@@ -811,5 +812,11 @@
       </link>
       <pose frame=''>0.60404 -0.182888 0 0 -0 0</pose>
     </model>
+
+    <include>
+        <uri>model://myicub_fixed</uri>
+        <pose >0 -0.1 0.6 0 0 1.57</pose>
+    </include>
+
   </world>
 </sdf>
