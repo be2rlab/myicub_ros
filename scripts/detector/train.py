@@ -115,7 +115,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
 
     # x_train, y_train = dataset.get_all_data()
 
-    for epoch in range(start_epoch, epochs):  # epoch ------------------------------------------------------------------
+    for epoch in tqdm(range(start_epoch, epochs)):  # epoch ------------------------------------------------------------------
         model.train()
 
         mloss = torch.zeros(4, device=device)  # mean losses
@@ -128,7 +128,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
         pbar = tqdm(pbar, total=nb)  # progress bar
         optimizer.zero_grad()
 
-        logger.info(('\n' + '%10s' * 8) % ('Epoch', 'gpu_mem', 'box', 'obj', 'cls', 'total', 'targets', 'img_size'))
+        print(('\n' + '%10s' * 8) % ('Epoch', 'gpu_mem', 'box', 'obj', 'cls', 'total', 'targets', 'img_size'))
 
         for i, (imgs, targets, _, _) in pbar:  # batch -------------------------------------------------------------
 
@@ -195,6 +195,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
         # Scheduler
         scheduler.step()
         # mAP
+        print('train:')
         results, maps, times = test.test(opt.data,
                                          batch_size=total_batch_size,
                                          imgsz=imgsz_test,
@@ -205,12 +206,12 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
                                          save_dir=log_dir,
                                          #    plots=epoch == 0,  # plot first and last
                                          log_imgs=0,
-                                         verbose=False,
+                                         verbose=True,
                                          nc=nc)
 
         if (epoch % 5 == 0) and valid_path is not None:
             print(valid_path)
-            print('valid:')
+            print('valid: (is broken)')
             test.test(opt.data,
                      batch_size=total_batch_size,
                      imgsz=imgsz_test,
@@ -262,6 +263,8 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
 
         # Save model
         save = not opt.nosave
+
+        last = wdir / f'{epoch}last.pt'
         if save:
             with open(results_file, 'r') as f:  # create checkpoint
                 ckpt = {'epoch': epoch,

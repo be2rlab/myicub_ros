@@ -18,7 +18,7 @@ import torch.optim as optim
 #     compute_loss, plot_images, fitness, strip_optimizer, plot_results, get_latest_run, check_dataset, check_file,
 #     check_git_status, check_img_size, increment_dir, print_mutation, plot_evolution, set_logging, init_seeds)
 
-from utils.general import check_dataset, check_file, init_seeds
+from utils.general import check_dataset, check_file, init_seeds, increment_dir
 
 from warnings import warn
 from pathlib import Path
@@ -39,7 +39,7 @@ def load_state(path='detector.pckl'):
 
 class Detector:
 
-    def __init__(self, weights='yolov5m.pt', load_ext_mem=False):
+    def __init__(self, load_ext_mem=False):
         self.logger = logging.getLogger(__name__)
 
         self.device = torch.device('cuda:0')
@@ -48,7 +48,9 @@ class Detector:
         opt, hyp = get_opt_and_hyp()
 
         self.logger.info(f'Hyperparameters {hyp}')
-        self.log_dir = Path(opt.logdir) # logging directory
+        # self.log_dir = Path(opt.logdir) # logging directory
+        self.log_dir = increment_dir(Path(opt.logdir) / 'exp', opt.name)  # runs/exp1
+        self.log_dir = Path(self.log_dir)
         wdir = self.log_dir / 'weights'  # weights dfirectory
         os.makedirs(wdir, exist_ok=True)
         # last = wdir / 'last.pt'
@@ -76,6 +78,7 @@ class Detector:
        # assert len(names) == nc, '%g names found for nc=%g dataset in %s' % (len(names), nc, opt.data)  # check
 
         # Model
+        weights = opt.weights
         pretrained = weights.endswith('.pt')
         if pretrained:
             attempt_download(weights)  # download if not found locally
@@ -162,8 +165,12 @@ class Detector:
         self.hyp = hyp
 
         self.added_classes = 0
+      #  self.train.n_iter = 0
 
     def train(self, train_files, class_names, valid_file=None):
+
+        
+       # self.log_dir = Path(str(self.log_dir) + str(train.n_iter))
 
         if not isinstance(class_names, list):
             class_names = [class_names]
@@ -228,11 +235,11 @@ class Detector:
 
 def get_opt_and_hyp():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='yolov5m.pt', help='initial weights path')
-    parser.add_argument('--cfg', type=str, default='models/yolov5m.yaml', help='model.yaml path')
+    parser.add_argument('--weights', type=str, default='yolov5s.pt', help='initial weights path')
+    parser.add_argument('--cfg', type=str, default='models/yolov5s.yaml', help='model.yaml path')
     parser.add_argument('--data', type=str, default='../../../demoset/data.yaml', help='data.yaml path')
     parser.add_argument('--hyp', type=str, default='data/hyp.scratch.yaml', help='hyperparameters path')
-    parser.add_argument('--epochs', type=int, default=20)
+    parser.add_argument('--epochs', type=int, default=15)
     # parser.add_argument('--epochs_iter', type=int, default=20)
     parser.add_argument('--batch-size', type=int, default=8, help='total batch size for all GPUs')
     parser.add_argument('--img-size', nargs='+', type=int, default=416, help='[train, test] image sizes')
@@ -285,10 +292,14 @@ if __name__ == '__main__':
     # train_paths = ['dataset_files/Cube.txt',
     #                 'dataset_files/Banana.txt',
     #                 'dataset_files/Box.txt',
-    #                 'dataset_files/Toy.txt',
+    #    #             'dataset_files/Toy.txt',
     # ]
-    # class_names = ['Cube', 'Banana', 'Box', 'Toy']
-    # dt.train(train_paths, class_names, valid_file='valid.txt')
+    # class_names = ['Cube', 
+    #             'Banana', 
+    #             'Box', 
+    #         #    'Toy'
+    #             ]
+    # dt.train(train_paths, class_names)#, valid_file='valid.txt')
 
     # dt.save_state('main.pckl')
 
@@ -299,7 +310,7 @@ if __name__ == '__main__':
 
 
     # dt = load_state('main.pckl')
-    # dt.train(train_paths, class_names, valid_file='valid.txt')
+    # dt.train(train_paths, class_names)#, valid_file='valid.txt')
     # dt.save_state('iter.pckl')
     dt = Detector()
 
@@ -310,6 +321,7 @@ if __name__ == '__main__':
                     'dataset_files/Can.txt',
                     'dataset_files/Egg.txt'
     ]
+
     class_names = ['Cube', 'Banana', 'Box', 'Toy', 'Can', 'Egg']
     dt.train(train_paths, class_names, valid_file='valid.txt')
 

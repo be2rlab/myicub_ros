@@ -9,8 +9,9 @@ files = os.listdir(root)
 #'iter.pckl'
 dt_main = load_state('main.pckl')
 dt_iter = load_state('iter.pckl')
+# dt_iter = load_state('all_classes.pckl')
 
-# with open('../demoset/train_4.txt', 'r') as f:
+# with open('train_all.txt', 'r') as f:
 #     files = f.readlines()
 
 for f in files:
