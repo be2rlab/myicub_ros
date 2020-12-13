@@ -1,3 +1,33 @@
+
+## Simple use
+
+1. Clone the repository
+
+```
+git clone https://github.com/be2rlab/myicub_ros.git
+```
+
+2. Build docker image
+
+```
+./docker/build_docker.bash
+```
+
+3. Run docker container
+
+```
+./docker/run_icub.bash
+```
+
+4. New *bash* inside docker container
+
+```
+./docker/exec_icub.bash
+```
+
+and go to the *RUN* part of the readme.
+
+
 ## Dependencies
 
 ### Detector
