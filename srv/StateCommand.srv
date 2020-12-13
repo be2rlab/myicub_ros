@@ -1,0 +1,7 @@
+int8[4] allow_body_part
+float64[3] q_torso
+float64[16] q_left
+float64[16] q_right
+float64[6] q_head
+---
+int8 resp

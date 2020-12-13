@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="myicub_fixed">
+    <include>
+      <uri>model://myicub</uri>
+      <pose>0.0 0 0.0 0 0 3.14</pose>
+    </include>
+
+    <!-- <include>
+      <uri>model://realsense_camera</uri>
+      <pose>0.2 0 0.2 0 0 3.14</pose>
+    </include> -->
+
+    <joint name="fixed to ground" type="revolute">
+      <parent>world</parent>
+      <child>iCub::root_link</child>
+       <axis>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+        <xyz>0 0 1</xyz>
+        </axis>
+    </joint>
+
+    <!-- <joint name="fixed head" type="revolute">
+      <parent>world</parent>
+      <child>iCub::head</child>
+       <axis>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+        <xyz>0 0 1</xyz>
+        </axis>
+    </joint> -->
+
+
+
+  </model>
+</sdf>
