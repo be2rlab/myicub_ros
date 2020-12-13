@@ -124,6 +124,14 @@ RUN apt-get update && apt-get install -y ros-melodic-camera-info-manager
 RUN apt-get update && apt-get install -y ros-melodic-depth-image-proc
 
 
+RUN apt-get install -y ros-melodic-visp* \
+                       ros-melodic-camera-info-manager* \
+                       ros-melodic-image-transport* \
+                       ros-melodic-codec-image-transport \
+                       ffmpeg
+
+RUN apt-get install -y ros-melodic-usb-cam ros-melodic-image-view
+
 COPY config.yaml /root/.ignition/fuel/config.yaml
 
 RUN echo "source /icub-grasping/robotology-superbuild/build/install/share/robotology-superbuild/setup.sh" >> /root/.bashrc

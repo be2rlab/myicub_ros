@@ -2,5 +2,4 @@
 *~
 .vscode
 .idea
-*.txt
 *.pyc

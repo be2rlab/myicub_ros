@@ -7,8 +7,14 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   sensor_msgs
   message_generation
+  visp_bridge
+  tf
 )
 
+add_message_files(
+  FILES
+  CameraFeatures.msg
+)
 add_service_files(FILES StateCommand.srv)
 generate_messages(DEPENDENCIES std_msgs)
 
@@ -18,6 +24,7 @@ catkin_package(
 
 find_package(YARP 3.3.0 REQUIRED)
 find_package(ICUBcontrib REQUIRED)
+find_package(VISP REQUIRED)
 
 # extend the current search path used by cmake to load helpers
 list(APPEND CMAKE_MODULE_PATH ${ICUBCONTRIB_MODULE_PATH})
@@ -28,12 +35,17 @@ include_directories(
     include
     /usr/include/yarp
     ${catkin_INCLUDE_DIRS}
+    ${VISP_INCLUDE_DIRS}
 )
 
 icubcontrib_set_default_prefix()
 
 add_executable(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/src/js_interface.cpp)
 target_link_libraries(${PROJECT_NAME} ${YARP_LIBRARIES} ${catkin_LIBRARIES})
+
+add_executable(ar_detector_node src/ar_detector_node.cpp)
+target_link_libraries(ar_detector_node ${catkin_LIBRARIES} ${VISP_LIBRARIES})
+add_dependencies(ar_detector_node ${catkin_EXPORTED_TARGETS})
 
 # add_executable(image_talker)
 # target_sources(image_talker PRIVATE ${CMAKE_SOURCE_DIR}/src/image_talker.cpp)

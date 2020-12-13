@@ -85,7 +85,7 @@ JSROSInterface::JSROSInterface() {
     // Default values setup
     double q_torso0[joints_torso] = {0, 0, 0};
     double q_left0[joints_left] = {-45, 80, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0};
-    double q_right0[joints_right] = {-45, 0, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0};
+    double q_right0[joints_right] = {-45, 80, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0};
     double q_head0[joints_head] = {-29 ,-30 ,0 ,0 ,0, 0};
 
     q_torso = new double[joints_torso];
