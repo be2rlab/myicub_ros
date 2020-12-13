@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>icub_ros</name>
+  <name>myicub_ros</name>
   <version>0.0.1</version>
-  <description>The icub_ros package</description>
+  <description>The myicub_ros package</description>
   <maintainer email="kika@todo.todo">kika</maintainer>
   <license>MIT</license>
 
