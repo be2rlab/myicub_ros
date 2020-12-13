@@ -7,7 +7,7 @@ material Table/Diffuse
     {
       texture_unit
       {
-       texture White_wood.png
+       texture White_wood.jpg
 	filtering anistropic
         max_anisotropy 16
       }
