@@ -61,7 +61,7 @@ public:
 			/* Read parameters from ROS param-server */
 			nh.param<int>("/rate", RATE, 50);
 			nh.param<bool>("/debug", debug, true);
-			nh.param<std::string>("/camera_topic", camera_topic, "/usb_cam/image_raw");
+			nh.param<std::string>("/camera_topic", camera_topic, "/realsense_plugin/camera/color/image_raw"); // /usb_cam/image_raw
 			nh.param<std::string>("/camera_name", camera_name, "floor_camera");
 			nh.param<std::string>("/camera_config_file", camera_config_file, "/user/rosicub/src/myicub_ros/config/floor_camera.xml");
 
@@ -93,7 +93,6 @@ public:
 
 			// Build drone -> camera transform. Hard coded
 			dMc.buildFrom(vpTranslationVector(0, 0, 0), vpRotationMatrix(vpRxyzVector(M_PI, 0, M_PI)));
-
 
 			/* Initialize ROS entities */
 			imageSub = nh.subscribe(camera_topic, 1, &MarkerDetectorNode::image_callback, this);
