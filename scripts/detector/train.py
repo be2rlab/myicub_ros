@@ -264,7 +264,7 @@ def train_on_large_batch(classes_to_update, train_path, model, device, logger, v
         # Save model
         save = not opt.nosave
 
-        last = wdir / f'{epoch}last.pt'
+        last = wdir / 'last.pt'
         if save:
             with open(results_file, 'r') as f:  # create checkpoint
                 ckpt = {'epoch': epoch,
