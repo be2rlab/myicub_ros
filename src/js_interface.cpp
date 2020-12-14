@@ -152,7 +152,7 @@ void JSROSInterface::spin() {
         position_left_arm->setRefSpeed(i, 50);
         position_right_arm->setRefSpeed(i, 50);
         if (i < 6) {
-          position_head->setRefSpeed(i, 10);
+          position_head->setRefSpeed(i, 30);
         }
       }
 

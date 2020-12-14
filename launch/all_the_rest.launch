@@ -1,0 +1,5 @@
+<launch>
+    <include file="$(find myicub_ros)/launch/depth_proc.launch"></include>
+    <node pkg="myicub_ros" type="myicub_ros" name="myicub_ros" args=""></node>
+    <node pkg="myicub_ros" type="ar_detector_node" name="ar_detector_node" args=""></node>
+</launch>

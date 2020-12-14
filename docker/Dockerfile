@@ -138,7 +138,8 @@ RUN echo "source /icub-grasping/robotology-superbuild/build/install/share/roboto
 # RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
 RUN echo "source /user/rosicub/devel/setup.bash" >> /root/.bashrc
 
-RUN echo 'export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:/user/rosicub/src/myicub_ros/models' >> /root/.bashrc
+# RUN echo 'export GAZEBO_MODEL_PATH=${GAZEBO_MODEL_PATH}:/user/rosicub/src/myicub_ros/models' >> /root/.bashrc
+RUN echo 'export GAZEBO_MODEL_PATH=/usr/share/gazebo-9/models:/user/rosicub/src/myicub_ros/models' >> /root/.bashrc
 RUN echo 'export GAZEBO_PLUGIN_PATH=${GAZEBO_PLUGIN_PATH}:/user/rosicub/devel/lib' >> /root/.bashrc
 
 # COPY ./env_setup.bash /env_setup.bash

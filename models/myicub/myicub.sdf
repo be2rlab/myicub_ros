@@ -1,10 +1,8 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='iCub'>
-    <pose>0 0 0.6 0 0 3.14</pose>
-
+  <model name='myicub'>
     <link name='root_link'>
-      <pose>0 0 0 0 -0 0</pose>
+      <pose>0 0 0 0 -0 3.14</pose>
       <inertial>
         <pose>0 0 0 0 -0 0</pose>
         <mass>4.72</mass>
@@ -22,7 +20,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_root_link.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_root_link.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -31,7 +29,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_root_link.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_root_link.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -56,7 +54,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_lap_belt_1.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_lap_belt_1.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -65,7 +63,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_lap_belt_1.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_lap_belt_1.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -144,7 +142,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_chest.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_chest.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -153,7 +151,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_chest.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_chest.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -197,7 +195,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_l_shoulder_1.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_l_shoulder_1.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -206,7 +204,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_l_shoulder_1.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_l_shoulder_1.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -250,7 +248,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_l_shoulder_2.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_l_shoulder_2.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -259,7 +257,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_l_shoulder_2.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_l_shoulder_2.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -338,7 +336,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_l_arm.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_l_arm.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -347,7 +345,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_l_arm.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_l_arm.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -374,7 +372,7 @@
         <update_rate>100</update_rate>
         <pose>0 0 0 0 0 0</pose>
         <plugin name='left_arm_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
-          <yarpConfigurationFile>model://icub/conf/FT/gazebo_icub_left_arm_ft.ini</yarpConfigurationFile>
+          <yarpConfigurationFile>model://myicub/conf/FT/gazebo_icub_left_arm_ft.ini</yarpConfigurationFile>
         </plugin>
       </sensor>
     </joint>
@@ -432,7 +430,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_l_forearm.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_l_forearm.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -441,7 +439,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_l_forearm.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_l_forearm.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -544,7 +542,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_neck_1.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_neck_1.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -553,7 +551,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_neck_1.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_neck_1.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -607,7 +605,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_neck_2.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_neck_2.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -616,10 +614,10 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_neck_2.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_neck_2.dae</uri>
           </mesh>
         </geometry>
-      </visual>
+      </visual> 
     </link>
     <joint name='neck_roll' type='revolute'>
       <child>neck_2</child>
@@ -670,7 +668,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_head.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_head.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -681,7 +679,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_head_without_eyes.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_head_without_eyes.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -691,7 +689,7 @@
         <visualize>1</visualize>
         <imu/>
         <plugin name='iCub_yarp_gazebo_plugin_IMU' filename='libgazebo_yarp_imu.so'>
-          <yarpConfigurationFile>model://icub/conf/gazebo_icub_inertial.ini</yarpConfigurationFile>
+          <yarpConfigurationFile>model://myicub/conf/gazebo_icub_inertial.ini</yarpConfigurationFile>
         </plugin>
         <pose>0.0185 -0.1108 0.0066 1.5708 -0 0</pose>
       </sensor>
@@ -768,7 +766,7 @@
         <geometry>
              <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_eye.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_eye.dae</uri>
           </mesh>
    <!-- <cylinder><radius>0.01</radius><length>0.05</length></cylinder> -->
         </geometry>
@@ -790,7 +788,7 @@
         <update_rate>30</update_rate>
         <visualize>true</visualize>
         <plugin filename="libgazebo_yarp_camera.so" name="left_camera_plugin">
-          <yarpConfigurationFile>model://icub/conf/left_camera.ini</yarpConfigurationFile>
+          <yarpConfigurationFile>model://myicub/conf/left_camera.ini</yarpConfigurationFile>
         </plugin>
       </sensor>
     </link>
@@ -815,7 +813,7 @@
  <!-- <cylinder><radius>0.01</radius><length>0.05</length></cylinder>-->
             <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_eye.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_eye.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -836,7 +834,7 @@
         <update_rate>30</update_rate>
         <visualize>true</visualize>
         <plugin filename="libgazebo_yarp_camera.so" name="right_camera_plugin">
-          <yarpConfigurationFile>model://icub/conf/right_camera.ini</yarpConfigurationFile>
+          <yarpConfigurationFile>model://myicub/conf/right_camera.ini</yarpConfigurationFile>
         </plugin>
       </sensor>
     </link>
@@ -953,7 +951,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_r_shoulder_1.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_r_shoulder_1.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -962,7 +960,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_r_shoulder_1.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_r_shoulder_1.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -1006,7 +1004,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_r_shoulder_2.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_r_shoulder_2.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -1015,7 +1013,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_r_shoulder_2.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_r_shoulder_2.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -1094,7 +1092,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_r_arm.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_r_arm.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -1103,7 +1101,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_r_arm.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_r_arm.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -1130,7 +1128,7 @@
         <update_rate>100</update_rate>
         <pose>0 0 0 0 0 0</pose>
         <plugin name='right_arm_ft_plugin' filename='libgazebo_yarp_forcetorque.so'>
-          <yarpConfigurationFile>model://icub/conf/FT/gazebo_icub_right_arm_ft.ini</yarpConfigurationFile>
+          <yarpConfigurationFile>model://myicub/conf/FT/gazebo_icub_right_arm_ft.ini</yarpConfigurationFile>
         </plugin>
       </sensor>
     </joint>
@@ -1188,7 +1186,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/collision/icub_simple_collision_r_forearm.dae</uri>
+            <uri>model://myicub/meshes/collision/icub_simple_collision_r_forearm.dae</uri>
           </mesh>
         </geometry>
       </collision>
@@ -1197,7 +1195,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>model://icub/meshes/visual/icub_r_forearm.dae</uri>
+            <uri>model://myicub/meshes/visual/icub_r_forearm.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -1474,62 +1472,81 @@
     </joint>
 
     <include>
-        <uri>model://icub/l_leg</uri>
+        <uri>model://l_leg</uri>
     </include>
 
     <include>
-        <uri>model://icub/r_leg</uri>
+        <uri>model://r_leg</uri>
     </include>
 
     <include>
-      <uri>model://icub/l_hand</uri>
+      <uri>model://l_hand</uri>
       <pose>-0.0107501 -0.110259 -0.11428 1.57 0 1.57</pose>
     </include>
 
     <include>
-      <uri>model://icub/r_hand</uri>
+      <uri>model://r_hand</uri>
       <pose>-0.0107503 0.11026 -0.11428 1.57 0 -1.57</pose>
     </include>
 
+
+
+    <joint name="fixed to ground" type="revolute">
+      <parent>world</parent>
+      <child>iCub::root_link</child>
+       <axis>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+        </limit>
+        <xyz>0 0 1</xyz>
+        </axis>
+    </joint>
+
+
+
     <plugin name='controlboard_torso' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_torso.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_torso.ini</yarpConfigurationFile>
     </plugin>
 
     <plugin name='controlboard_head' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_head.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_head.ini</yarpConfigurationFile>
     </plugin>
 
     <plugin name="apply_external_wrench" filename="libgazebo_yarp_externalwrench.so" >
-      <robotNamefromConfigFile>model://icub/conf/gazebo_icub_robotname.ini</robotNamefromConfigFile>>
+      <robotNamefromConfigFile>model://myicub/conf/gazebo_icub_robotname.ini</robotNamefromConfigFile>>
     </plugin>
 
     <plugin name='controlboard_left_arm_no_hand' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_left_arm_no_hand.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_left_arm_no_hand.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
 
     <plugin name='controlboard_right_arm_no_hand' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_right_arm_no_hand.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_right_arm_no_hand.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
 
     <plugin name='controlboard_left_arm' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_left_arm.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_left_arm.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
     
     <plugin name='controlboard_right_arm' filename='libgazebo_yarp_controlboard.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_right_arm.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_right_arm.ini</yarpConfigurationFile>
       <initialConfiguration>-0.52 0.52 0 0.785 0 0 0.0</initialConfiguration>
     </plugin>
 
     <!-- <plugin name='mais_left_hand' filename='libgazebo_yarp_maissensor.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_left_hand_mais.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_left_hand_mais.ini</yarpConfigurationFile>
     </plugin>
 
     <plugin name='mais_right_hand' filename='libgazebo_yarp_maissensor.so'>
-      <yarpConfigurationFile>model://icub/conf/gazebo_icub_right_hand_mais.ini</yarpConfigurationFile>
+      <yarpConfigurationFile>model://myicub/conf/gazebo_icub_right_hand_mais.ini</yarpConfigurationFile>
     </plugin> -->
+
+
+
 
   </model>
 </sdf>

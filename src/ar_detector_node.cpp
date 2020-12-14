@@ -81,11 +81,11 @@ public:
 				cam.initPersProjWithoutDistortion(px, py, u0, v0);
 			}
 
-							double px = 640;
-				double py = 480;
-				double u0 = 320;
-				double v0 = 240;
-				cam.initPersProjWithoutDistortion(px, py, u0, v0);
+			double px = 640;
+			double py = 480;
+			double u0 = 320;
+			double v0 = 240;
+			cam.initPersProjWithoutDistortion(px, py, u0, v0);
 
 			std::cout << cam << std::endl;
 			std::cout << "poseEstimationMethod: " << poseEstimationMethod << std::endl;
@@ -149,6 +149,8 @@ public:
 			/* Start node */
 			ros::Rate R(RATE);
 			while (nh.ok()) {
+				myicub_ros::CameraFeatures camera_features;
+				// std::vector<double> marker_poses; // ne row vector: 1 x 7*N
 
 				vpDisplay::display(I);
 
@@ -169,17 +171,25 @@ public:
 
 				int N = detector.getNbObjects();
 				if (N > 0) {  // if TAG detected!
-					for (int k = 0; k < N; ++k) {
+					/* Drone -> Camera transform */
+					vpTranslationVector camera_tr;
+					vpQuaternionVector camera_qt;
+					extract(dMc, camera_tr, camera_qt);
 
-						/* Drone -> Camera transform */
-						vpTranslationVector camera_tr;
-						vpQuaternionVector camera_qt;
-						extract(dMc, camera_tr, camera_qt);
+					for (int k = 0; k < N; ++k) {
 
 						/* Camera -> Marker transform */
 						vpTranslationVector marker_tr;
 						vpQuaternionVector marker_qt;
 						extract(cMo_vec[k], marker_tr, marker_qt);
+
+						// // Fill the markers poses vector for publishing
+						// for (int ii = 0; ii < 3; ++ii) {
+						// 	camera_features.marker_pose.push_back(marker_tr[ii]);
+						// }
+						// for (int ii = 0; ii < 4; ++ii) {
+						// 	camera_features.marker_pose.push_back(marker_qt[ii]);
+						// }
 
 						/* Add tf frames */
 						static tf::TransformBroadcaster br;
@@ -189,7 +199,7 @@ public:
 						transform.setOrigin(tf::Vector3(camera_tr[0], camera_tr[1], camera_tr[2]));
 						tf::Quaternion qt_camera(camera_qt.x(), camera_qt.y(), camera_qt.z(), camera_qt.w());
 						transform.setRotation(qt_camera);
-						br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "drone", "camera"));
+						br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "root_link", "camera"));
 
 						// Add marker frame
 						transform.setOrigin(tf::Vector3(marker_tr[0], marker_tr[1], marker_tr[2]));
@@ -207,24 +217,55 @@ public:
 						double dx = cam.get_u0() - marker_cog.get_u();
 						double dy = cam.get_v0() - marker_cog.get_v();
 
-						myicub_ros::CameraFeatures camera_features;
 						camera_features.rho = sqrt(dx * dx + dy * dy);
 						camera_features.theta = atan2(dy, dx);  // !!! check for every quaters
 						camera_features.cog_x = marker_cog.get_u();
 						camera_features.cog_y = marker_cog.get_v();
 						camera_features.area = polygon.getArea();
 						camera_features.Z = marker_tr[2];
-						markerFeaturesPub.publish(camera_features);
+						
+						camera_features.marker_pose[8 * k] = -1; // WARN !!!!!!!!!!!!!!!
 
 						if (debug) {  // show camera image using visp tools
+ 							vpRect bbox = detector.getBBox(k);
+							std::string message = detector.getMessage(k);
+							std::size_t tag_id_pos = message.find("id: ");
+							if (tag_id_pos != std::string::npos) {
+								int tag_id = atoi(message.substr(tag_id_pos + 4).c_str());
+								
+								camera_features.marker_pose[8 * k] = tag_id; // WARN !!!!!!!!!!!!!!!
 
-							vpDisplay::displayPolygon(I, polygon.getCorners(), vpColor::orange, 2);
-							vpDisplay::displayCross(I, marker_cog, 25, vpColor::orange, 5);
+								ss.str("");
+								ss << tag_id;
+								vpDisplay::displayText(I, (int)(bbox.getTop() - 10), (int)bbox.getLeft(), ss.str(), vpColor::green);
+							}
+
+							// vpDisplay::displayPolygon(I, polygon.getCorners(), vpColor::orange, 2);
+							// vpDisplay::displayCross(I, marker_cog, 25, vpColor::orange, 5);
 
 							// draw marker's frame
 							vpDisplay::displayFrame(I, cMo_vec[k], cam, tagSize / 2, vpColor::none, 3);
 						}
+
+						for (int ii = 1; ii < 8; ++ii) {
+							camera_features.marker_pose[ii + (8 * k)] = marker_tr[ii];
+							if (ii > 2) {
+								camera_features.marker_pose[ii + (8 * k)] = marker_qt[ii];
+							}
+						}
 					}
+
+					// Fill the camera pose vector for publishing
+					for (int ii = 0; ii < 7; ++ii) {
+						// camera_features.camera_pose.push_back(camera_tr[ii]);
+						camera_features.camera_pose[ii] = camera_tr[ii];
+						if (ii > 2) {
+							camera_features.camera_pose[ii] = camera_qt[ii];
+						}
+					}
+
+					markerFeaturesPub.publish(camera_features);
+
 				}
 				vpDisplay::flush(I);
 				ros::spinOnce();
