@@ -18,7 +18,7 @@ if [[ $1 = "--nvidia" ]] || [[ $1 = "-n" ]]
                 -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
                 -e XAUTHORITY \
                 -v /dev:/dev \
-                -v /home/$USER/_icub/icub-grasping/:/icub-grasping \
+                -v /home/$USER/icub_ws/icub-grasping/:/icub-grasping \
                 -v /home/$USER/:/user \
                --net=host \
                --privileged \
@@ -33,7 +33,7 @@ else
                 -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
                 -e XAUTHORITY \
                 -v /dev:/dev \
-                -v /home/$USER/_icub/icub-grasping/:/icub-grasping \
+                -v /home/$USER/icub_ws/icub-grasping/:/icub-grasping \
                 -v /home/$USER/matlab/:/matlab \
                 -v /home/$USER/:/user \
                 -e Matlab_ROOT_DIR=/matlab \
