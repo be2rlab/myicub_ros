@@ -8,7 +8,7 @@ root = '../../../det_class_yolo/inference/images'
 files = os.listdir(root)
 #'iter.pckl'
 dt_main = load_state('main.pckl')
-dt_iter = load_state('iter.pckl')
+dt_iter = load_state('all_classes.pckl')
 # dt_iter = load_state('all_classes.pckl')
 
 # with open('train_all.txt', 'r') as f:

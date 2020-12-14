@@ -70,7 +70,7 @@ class Detector:
         with open(opt.data) as f:
             data_dict = yaml.load(f, Loader=yaml.FullLoader)  # data dict
  
-        check_dataset(data_dict)  # check
+       # check_dataset(data_dict)  # check
 
 
         self.nc = 6
@@ -287,45 +287,54 @@ def get_opt_and_hyp():
     return opt, hyp
 
 if __name__ == '__main__':
-    # dt = Detector()
 
-    # train_paths = ['dataset_files/Cube.txt',
-    #                 'dataset_files/Banana.txt',
-    #                 'dataset_files/Box.txt',
-    #    #             'dataset_files/Toy.txt',
-    # ]
-    # class_names = ['Cube', 
-    #             'Banana', 
-    #             'Box', 
-    #         #    'Toy'
-    #             ]
-    # dt.train(train_paths, class_names)#, valid_file='valid.txt')
-
-    # dt.save_state('main.pckl')
-
-    # train_paths = ['dataset_files/Can.txt',
-    #                 'dataset_files/Egg.txt'
-    #        ]
-    # class_names = ['Can', 'Egg']
-
-
-    # dt = load_state('main.pckl')
-    # dt.train(train_paths, class_names)#, valid_file='valid.txt')
-    # dt.save_state('iter.pckl')
     dt = Detector()
 
     train_paths = ['dataset_files/Cube.txt',
                     'dataset_files/Banana.txt',
                     'dataset_files/Box.txt',
-                    'dataset_files/Toy.txt',
-                    'dataset_files/Can.txt',
-                    'dataset_files/Egg.txt'
+       #             'dataset_files/Toy.txt',
     ]
+    class_names = ['Cube', 
+                'Banana', 
+                'Box', 
+            #    'Toy'
+                ]
+    dt.train(train_paths, class_names)#, valid_file='valid.txt')
 
-    class_names = ['Cube', 'Banana', 'Box', 'Toy', 'Can', 'Egg']
-    dt.train(train_paths, class_names, valid_file='valid.txt')
+    dt.save_state('main.pckl')
 
-    dt.save_state('all_classes.pckl')
+    train_paths = ['dataset_files/Can.txt'
+           ]
+    class_names = ['Can']
+
+
+    dt = load_state('main.pckl')
+    dt.train(train_paths, class_names)#, valid_file='valid.txt')
+    dt.save_state('iter_4.pckl')
+    train_paths = [
+                    'dataset_files/Egg.txt'
+           ]
+    class_names = ['Egg']
+
+
+    dt = load_state('iter_4.pckl')
+    dt.train(train_paths, class_names)#, valid_file='valid.txt')
+    dt.save_state('iter_5.pckl')
+    # dt = Detector()
+
+    # train_paths = ['dataset_files/Cube.txt',
+    #                 'dataset_files/Banana.txt',
+    #                 'dataset_files/Box.txt',
+    #                 'dataset_files/Toy.txt',
+    #                 'dataset_files/Can.txt',
+    #                 'dataset_files/Egg.txt'
+    # ]
+
+    # class_names = ['Cube', 'Banana', 'Box', 'Toy', 'Can', 'Egg']
+    # dt.train(train_paths, class_names, valid_file='valid.txt')
+
+    # dt.save_state('all_classes.pckl')
 
 
 
