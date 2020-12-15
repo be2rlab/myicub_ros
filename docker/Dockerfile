@@ -94,22 +94,22 @@ RUN git config --global user.name human && git config --global user.email human@
 RUN apt-add-repository ppa:dartsim/ppa && apt-get update && apt-get install -y libdart6-all-dev libtinyxml2-dev liburdfdom-dev \
     libxi-dev libxmu-dev freeglut3-dev libopenscenegraph-dev 
 
-RUN apt-get update && apt-get install -y python3-pip
-RUN pip3 install tensorflow
-# RUN pip3 install opencv-python
-RUN pip3 install object_detection
-RUN pip3 install tf-object-detection
-RUN pip3 install dnn
+RUN apt-get update && apt-get install -y python3-pip python3-setuptools
+# RUN pip3 install tensorflow
+# # RUN pip3 install opencv-python
+# RUN pip3 install object_detection
+# RUN pip3 install tf-object-detection
+# RUN pip3 install dnn
 
-RUN apt-get update && apt-get install -y python-pip
+# RUN apt-get update && apt-get install -y python-pip
 RUN apt-get update && apt-get install -y python-catkin-tools
 
-RUN python3 -m pip install -U pip
-RUN python3 -m pip install -U setuptools
-RUN pip3 install opencv-python
-RUN pip3 install pyyaml
-RUN pip3 install scipy
-RUN pip3 install tensorboard
+# RUN python3 -m pip install -U pip
+# RUN python3 -m pip install -U setuptools
+# RUN pip3 install opencv-python
+# RUN pip3 install pyyaml
+# RUN pip3 install scipy
+# RUN pip3 install tensorboard
 
 
 RUN apt-get update && apt-get install -y ros-melodic-eigen-stl-containers
@@ -132,7 +132,22 @@ RUN apt-get install -y ros-melodic-visp* \
 
 RUN apt-get install -y ros-melodic-usb-cam ros-melodic-image-view
 
+# RUN pip3 install torch
+# RUN pip3 install matplotlib
+# RUN pip3 install numpy>=1.17.0
+# RUN pip3 install torchvision
+# RUN pip3 install tqdm
+
+RUN python3 -m pip install -U pip
+RUN python3 -m pip install -U setuptools
+
+RUN rm -rf /usr/lib/python3/dist-packages/PyYAML-*
+
+COPY requirements.txt /requirements.txt
+RUN pip3 install -r /requirements.txt
+
 COPY config.yaml /root/.ignition/fuel/config.yaml
+
 
 RUN echo "source /icub-grasping/robotology-superbuild/build/install/share/robotology-superbuild/setup.sh" >> /root/.bashrc
 # RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc

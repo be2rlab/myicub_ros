@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import rospy
 import time
+from numpy import cos
 
 from myicub_ros.srv import StateCommand
 
@@ -8,14 +9,10 @@ from std_msgs.msg import Float64
 from std_msgs.msg import Int8
 
 
-class LookAround(object):
+class HeadRotate(object):
 
     def __init__(self):
-        self.allow_body_part = [1,1,1,1]
-        # self.torso = [0, 0, 0]
-        # self.q_left = [-45, 80, 0, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0]
-        # self.q_right = [-45, 80, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0]
-        # self.q_head = [0, 0 ,0 ,0 ,0, 0]
+        self.allow_body_part = [0,1,1,1 ]
 
         self.pose_seq = [
             {   #pose0
@@ -81,39 +78,26 @@ class LookAround(object):
         i0 = i
         flag = True
 
-        r = rospy.Rate(30)
-        start_time = rospy.get_time()
-        while not rospy.is_shutdown():
             
-            rospy.wait_for_service('state_command')
-            state_command = rospy.ServiceProxy('state_command', StateCommand)
+        rospy.wait_for_service('state_command')
+        state_command = rospy.ServiceProxy('state_command', StateCommand)
 
-            t = rospy.get_time() - start_time
-            print(i, t)
-            if i == i0 and t > 100:
-                start_time = rospy.get_time()
-                continue
 
-            if t < self.pose_seq[i]['t']:
-                print(i, t)
-                if flag:
-                    flag = False
-                    resp = state_command(self.allow_body_part, self.pose_seq[i]['torso'], 
-                                                                self.pose_seq[i]['q_left'],
-                                                                self.pose_seq[i]['q_right'],
-                                                                self.pose_seq[i]['q_head'])
-            else:
-                flag = True
-                start_time = rospy.get_time()
-                i = i + 1
-                if i >= len(self.pose_seq):
-                    break
+        r = rospy.Rate(1)
+        start_time = rospy.get_time()
+        k = 0
+        while not rospy.is_shutdown():
 
+            resp = state_command(self.allow_body_part, self.pose_seq[i]['torso'], 
+                                                        [-45, 70, 0, 100, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0],
+                                                        [-45, 70, 0, 100, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0],
+                                                        [-28, 0, 0 * cos(k), -29, 0, 0])
+            break               
+            k = k + 3.14
             r.sleep()
 
-
 if __name__=="__main__":
-    rospy.init_node('look_around_node')
+    rospy.init_node('head_rotate_node')
 
-    la = LookAround()
-    la.loop()
+    hr = HeadRotate()
+    hr.loop()

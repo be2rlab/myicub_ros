@@ -38,8 +38,44 @@ git clone https://github.com/robotology/robotology-superbuild.git
 
 **Inside docker!** Build robotology superbuild
 
+!Remove python2 :)
 ```
-cd /icub-grasping/robotology-superbuild && mkdir build && cd build && cmake .. && make -j16
+rm /usr/bin/python
+```
+
+Open ccmake GUI
+
+```
+cd /icub-grasping/robotology-superbuild && mkdir build && cd build && ccmake ..
+```
+
+* Press `c` and then `e`
+* Turn `ON` USE Python option
+* Press `c` and then `e`
+* Press `g`
+
+```
+make -j16
+```
+
+Edit the file
+
+```
+nano /icub-grasping/robotology-superbuild/build/install/share/robotology-superbuild/setup.bash
+```
+
+and replace 
+
+```
+export PYTHONPATH=${PYTHONPATH:+${PYTHONPATH}:}${ROBOTOLOGY_SUPERBUILD_INSTALL_PREFIX}/lib/python3.6/dist-packages
+export PYTHONPATH=${PYTHONPATH}:${ROBOTOLOGY_SUPERBUILD_INSTALL_PREFIX}/lib/python3.6/site-packages
+```
+
+to
+
+```
+export PYTHONPATH=${PYTHONPATH:+${PYTHONPATH}:}${ROBOTOLOGY_SUPERBUILD_INSTALL_PREFIX}/lib/python3/dist-packages
+export PYTHONPATH=${PYTHONPATH}:${ROBOTOLOGY_SUPERBUILD_INSTALL_PREFIX}/lib/python3/site-packages
 ```
 
 **All next steps on the host!**
@@ -98,23 +134,36 @@ roslaunch myicub_ros start_world.world
 ```
 
 ```
-roslaunch myicub_ros depth_proc.launch
+roslaunch myicub_ros all_the_rest.launch
 ```
 
-Run joint control ros-interface (**rosservice call /state_command ...**)
+
+### Test detector
+
+Turn on the camera
 
 ```
-rosrun myicub_ros myicub_ros
+yarpview --name /l
+yarp connect /icubSim/cam/left /l
 ```
 
 ```
-rosrun myicub_ros ar_detector_node
+rosrun myicub_ros head_rotate.py
 ```
+
+```
+rosrun myicub_ros camera_yarpinterface.py
+```
+
+### Test cartesian map generation
 
 ```
 rosrun myicub_ros look_around.py
 ```
 
+```
+rosrun myicub_ros gazebo_trick.py
+```
 
 
 
