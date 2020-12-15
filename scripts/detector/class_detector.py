@@ -67,8 +67,8 @@ class Detector:
 
         # Configure
         init_seeds(2)
-        with open(opt.data) as f:
-            data_dict = yaml.load(f, Loader=yaml.FullLoader)  # data dict
+        # with open(opt.data) as f:
+        #     data_dict = yaml.load(f, Loader=yaml.FullLoader)  # data dict
  
        # check_dataset(data_dict)  # check
 
@@ -237,7 +237,7 @@ def get_opt_and_hyp():
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', type=str, default='yolov5s.pt', help='initial weights path')
     parser.add_argument('--cfg', type=str, default='models/yolov5s.yaml', help='model.yaml path')
-    parser.add_argument('--data', type=str, default='../../../demoset/data.yaml', help='data.yaml path')
+    parser.add_argument('--data', type=str, default='../.dddd./../demoset/data.yaml', help='data.yaml path')
     parser.add_argument('--hyp', type=str, default='data/hyp.scratch.yaml', help='hyperparameters path')
     parser.add_argument('--epochs', type=int, default=15)
     # parser.add_argument('--epochs_iter', type=int, default=20)
@@ -271,8 +271,8 @@ def get_opt_and_hyp():
 
     
     # opt.hyp = opt.hyp or ('hyp.finetune.yaml' if opt.weights else 'hyp.scratch.yaml')
-    opt.data, opt.cfg, opt.hyp = check_file(opt.data), check_file(opt.cfg), check_file(opt.hyp)  # check files
-    assert len(opt.cfg) or len(opt.weights), 'either --cfg or --weights must be specified'
+    # opt.data, opt.cfg, opt.hyp = check_file(opt.data), check_file(opt.cfg), check_file(opt.hyp)  # check files
+    # assert len(opt.cfg) or len(opt.weights), 'either --cfg or --weights must be specified'
 
 
 
