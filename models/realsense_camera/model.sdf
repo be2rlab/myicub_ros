@@ -58,7 +58,7 @@
           </friction>
           <bounce>
             <restitution_coefficient>0</restitution_coefficient>
-            <threshold>1e+06</threshold>
+            <threshold>1e+16</threshold>
           </bounce>
           <contact>
             <collide_without_contact>0</collide_without_contact>
@@ -86,7 +86,7 @@
       <sensor name="color" type="camera">
         <pose frame="">0 -0.046 0.004 0 0 0</pose>
         <camera name="__default__">
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>2.047</horizontal_fov>
           <image>
             <width>640</width>
             <height>480</height>
@@ -109,7 +109,7 @@
       <sensor name="ired1" type="camera">
         <pose frame="">0 -0.06 0.004 0 0 0</pose>
         <camera name="__default__">
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>2.047</horizontal_fov>
           <image>
             <width>640</width>
             <height>480</height>
@@ -132,7 +132,7 @@
       <sensor name="ired2" type="camera">
         <pose frame="">0 0.01 0.004 0 0 0</pose>
         <camera name="__default__">
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>2.047</horizontal_fov>
           <image>
             <width>640</width>
             <height>480</height>
@@ -155,7 +155,7 @@
       <sensor name="depth" type="depth">
         <pose frame="">0 -0.03 0.004 0 0 0</pose>
         <camera name="__default__">
-          <horizontal_fov>1.047</horizontal_fov>
+          <horizontal_fov>2.047</horizontal_fov>
           <image>
             <width>640</width>
             <height>480</height>

@@ -86,7 +86,7 @@ JSROSInterface::JSROSInterface() {
     double q_torso0[joints_torso] = {0, 0, 0};
     double q_left0[joints_left] = {-45, 80, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0};
     double q_right0[joints_right] = {-45, 80, 20, 80, 0, 0, 0, 55, 0, 0 ,0 ,0 ,0 ,0 ,0, 0};
-    double q_head0[joints_head] = {-29 ,-30 ,0 ,0 ,0, 0};
+    double q_head0[joints_head] = {-29, 0, 0, 0,0, 0};
 
     q_torso = new double[joints_torso];
     q_left = new double[joints_left];
@@ -152,7 +152,7 @@ void JSROSInterface::spin() {
         position_left_arm->setRefSpeed(i, 50);
         position_right_arm->setRefSpeed(i, 50);
         if (i < 6) {
-          position_head->setRefSpeed(i, 10);
+          position_head->setRefSpeed(i, 30);
         }
       }
 

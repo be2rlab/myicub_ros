@@ -1,0 +1,14 @@
+<launch>
+    <arg name="robotModel" default="$(find myicub_ros)/urdf/model.urdf"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg robotModel)" />
+
+
+    <node
+        name="spawn_model"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-urdf -param robot_description -model myicub2"
+    />
+    <node name="state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    
+</launch>

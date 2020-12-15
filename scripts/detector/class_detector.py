@@ -3,14 +3,14 @@ import argparse
 import os
 import pickle
 import torch
-from utils.google_utils import attempt_download
-from models.experimental import attempt_load
+from .utils.google_utils import attempt_download
+from .models.experimental import attempt_load
 
 import yaml
-from models.yolo import Model
-from utils.torch_utils import intersect_dicts
+from .models.yolo import Model
+from .utils.torch_utils import intersect_dicts
 import logging
-from utils.datasets import externalMemory
+from .utils.datasets import externalMemory
 import torch.nn as nn
 import torch.optim as optim
 # from utils.general import (
@@ -18,16 +18,16 @@ import torch.optim as optim
 #     compute_loss, plot_images, fitness, strip_optimizer, plot_results, get_latest_run, check_dataset, check_file,
 #     check_git_status, check_img_size, increment_dir, print_mutation, plot_evolution, set_logging, init_seeds)
 
-from utils.general import check_dataset, check_file, init_seeds, increment_dir
+from .utils.general import check_dataset, check_file, init_seeds, increment_dir
 
 from warnings import warn
 from pathlib import Path
-from train import train_on_large_batch
+from .train import train_on_large_batch
 
 
 
-from detect import detect_img
-from fix_class_id import fix_class_id
+from .detect import detect_img
+from .fix_class_id import fix_class_id
 
 
 model_cfg = 'models/yolov5s.yaml'
