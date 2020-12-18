@@ -130,7 +130,7 @@ yarpserver
 ```
 
 ```
-roslaunch myicub_ros start_world.world
+roslaunch myicub_ros start_world.launch
 ```
 
 ```
