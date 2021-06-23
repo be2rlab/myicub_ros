@@ -8,6 +8,8 @@
 #include <std_msgs/Float32.h>
 
 #include <myicub_ros/CameraFeatures.h>
+#include <myicub_ros/Marker.h>
+#include <myicub_ros/Markers.h>
 
 #include <tf/transform_broadcaster.h>
 
@@ -35,6 +37,7 @@ class MarkerDetectorNode {
 		ros::Subscriber imageSub;
 		ros::Publisher markerPosePub;
 		ros::Publisher markerFeaturesPub;
+		ros::Publisher markersPub;
 
 		vpImage<unsigned char> I;
 		vpDisplayX d;
@@ -98,6 +101,7 @@ public:
 			imageSub = nh.subscribe(camera_topic, 1, &MarkerDetectorNode::image_callback, this);
 			markerFeaturesPub = nh.advertise<myicub_ros::CameraFeatures>("/marker/features", 1, true); // in image frame of the dron's camera
 			// markerPosePub = nh.advertise<geometry_msgs::Pose>("/marker_pose", 1, true); // in the drone frame
+			markersPub = nh.advertise<myicub_ros::Markers>("/markers", 1, true);
 
 			ROS_INFO("marker_detector_node started");
 		}
@@ -146,6 +150,9 @@ public:
 			detector.setDisplayTag(display_tag, vpColor::getColor(1), thickness);
 			detector.setZAlignedWithCameraAxis(align_frame);
 
+			// init msg for markers for a scene view in moveit
+			myicub_ros::Markers markers_msg;
+
 			/* Start node */
 			ros::Rate R(RATE);
 			while (nh.ok()) {
@@ -176,12 +183,59 @@ public:
 					vpQuaternionVector camera_qt;
 					extract(dMc, camera_tr, camera_qt);
 
+
 					for (int k = 0; k < N; ++k) {
 
 						/* Camera -> Marker transform */
 						vpTranslationVector marker_tr;
 						vpQuaternionVector marker_qt;
 						extract(cMo_vec[k], marker_tr, marker_qt);
+
+						// make new pose msg for the marker
+						geometry_msgs::Pose pose_msg;
+
+						pose_msg.position.x = marker_tr[0];
+						pose_msg.position.y = marker_tr[1];
+						pose_msg.position.z = marker_tr[2];
+						
+						pose_msg.orientation.x = marker_qt[0];
+						pose_msg.orientation.y = marker_qt[1];
+						pose_msg.orientation.z = marker_qt[2];
+						pose_msg.orientation.w = marker_qt[3];
+
+						// check the marker's id
+						std::string message = detector.getMessage(k);
+						std::size_t tag_id_pos = message.find("id: ");
+						// ROS_WARN("%s", message.c_str());
+
+						if (tag_id_pos != std::string::npos) {
+							int tag_id = atoi(message.substr(tag_id_pos + 4).c_str());
+
+							bool is_exist_marker = false;
+							// check if the marker exists with id == `tag_id`
+							int ii = 0;
+							while (ii < markers_msg.markers.size()) {
+								if (markers_msg.markers[ii].id == tag_id) {
+									// update exiting marker pose
+									markers_msg.markers[ii].pose = pose_msg;
+									is_exist_marker = true;
+									break;
+								}
+								ii++;
+							}
+							// if the marker is unknown add it
+							// TODO sometimes can be added bad markers because noize
+							if (!is_exist_marker) {
+								myicub_ros::Marker marker_msg;
+								marker_msg.id = tag_id;
+								marker_msg.pose = pose_msg;
+								
+								markers_msg.markers.push_back(marker_msg);
+							}
+
+						} else {
+							ROS_WARN("Too many markers for this code [the amount of markers is hardcoded as 32]");
+						}
 
 						// // Fill the markers poses vector for publishing
 						// for (int ii = 0; ii < 3; ++ii) {
@@ -265,7 +319,7 @@ public:
 					}
 
 					markerFeaturesPub.publish(camera_features);
-
+					markersPub.publish(markers_msg);
 				}
 				vpDisplay::flush(I);
 				ros::spinOnce();

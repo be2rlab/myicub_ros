@@ -14,9 +14,11 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   CameraFeatures.msg
+  Marker.msg
+  Markers.msg
 )
 add_service_files(FILES StateCommand.srv)
-generate_messages(DEPENDENCIES std_msgs)
+generate_messages(DEPENDENCIES std_msgs geometry_msgs myicub_ros)
 
 catkin_package(
     INCLUDE_DIRS include

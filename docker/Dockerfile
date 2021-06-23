@@ -146,6 +146,9 @@ RUN rm -rf /usr/lib/python3/dist-packages/PyYAML-*
 COPY requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt
 
+RUN pip3 install utils
+RUN pip3 install google_utils
+
 COPY config.yaml /root/.ignition/fuel/config.yaml
 
 
